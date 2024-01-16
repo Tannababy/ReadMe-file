@@ -4,6 +4,7 @@ const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 
 // array of questions for user
+
 const questions = [
   {
     name: "github",
