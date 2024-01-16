@@ -25,12 +25,12 @@ const questions = [
   {
     name: "description",
     type: "input",
-    message: "What is the the Description of your project?",
+    message: "What is the the Description of your project? Why was it created?",
   },
   {
-    name: "tableOfContents",
+    name: "screenshot",
     type: "input",
-    message: "Fill in Table of Contents",
+    message: "Add a screenshot using ![alt text](assts/images/screenshot.png)",
   },
   {
     name: "installation ",
@@ -59,14 +59,20 @@ const questions = [
   {
     name: "questions",
     type: "input",
-    message: "Create a Questions section here by typing 'questions'",
+    message: "Create a Questions section here by typing 'Questions'",
   },
   {
     name: "licence",
     type: "list",
     message: "Select a licence",
     choices: [
-      "'GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The ",
+      "GNU AGPLv3",
+      "GNU GPLv3",
+      "GNU LGPLv3",
+      "Mozilla Public License 2.0",
+      "Apache",
+      "MIT",
+      "Boost Software License 1.0",
     ],
   },
 ];
@@ -75,7 +81,7 @@ const questions = [
 function writeToFile(fileName, data) {}
 const file = ``;
 
-fs.writeFile("NewReadMe.MD", markdown, (err) =>
+fs.writeFile("NewReadMe.MD", generateMarkdown(data), (err) =>
   err ? console.error(err) : console.log(`Success!`)
 );
 // function to initialize program
