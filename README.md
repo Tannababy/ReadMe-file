@@ -14,7 +14,7 @@ In this week's challenge :star_struck:, we were tasked with creating an applicat
 
 ## Usage
 
-![Gif of app demonstration](./assets/)
+![Gif of app demonstration](./assets/Demo-vid.gif)
 
 Run node index.js in the command line of the file's directory to start the application. The application utilises inquirer to generate a series of questions to prompt the user for data.
 Based off the users responses alone, the application will generate a markdown file containing the following:
