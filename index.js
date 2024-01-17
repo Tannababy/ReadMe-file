@@ -69,6 +69,7 @@ const questions = [
       "GNU AGPLv3",
       "GNU GPLv3",
       "GNU LGPLv3",
+      "Eclipse Public License 1.0",
       "Mozilla Public License 2.0",
       "Apache",
       "MIT",
