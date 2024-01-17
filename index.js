@@ -2,10 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown.js");
-const api = require("./utils/api.js");
 
 // array of questions for user
-
 const questions = [
   {
     name: "github",
@@ -23,6 +21,12 @@ const questions = [
     name: "email",
     type: "input",
     message: "What is your email address?",
+    validate: function (answer) {
+      if (answer.length < 6) {
+        return console.log("A valid email address is required.");
+      }
+      return true;
+    },
   },
   {
     name: "title",
@@ -35,6 +39,12 @@ const questions = [
       }
       return true;
     },
+  },
+  {
+    name: "deployed_website",
+    type: "input",
+    message:
+      "Please provide a URL where a user can access your deployed application.",
   },
   {
     name: "description",
@@ -50,10 +60,11 @@ const questions = [
   {
     name: "screenshot",
     type: "input",
-    message: "Add a screenshot using ![alt text](assets/images/screenshot.png)",
+    message:
+      "Add a screenshot using ![alt text](assets/images/screenshot.png) if applicable.",
   },
   {
-    name: "installation ",
+    name: "installation",
     type: "input",
     message:
       "If applicable, describe the steps required to install your project for the Installation section, if not type N/A",
@@ -62,7 +73,7 @@ const questions = [
     name: "usage",
     type: "input",
     message:
-      "Provide instructions and examples of your project in use for the Usage section.",
+      "Provide instructions and examples of your project in use for the Usage section (a video of the functionality is advised using ![alt text](./assets/videofile path)).",
   },
   {
     name: "contributing",
@@ -82,9 +93,9 @@ const questions = [
     message: "Create a Questions section here by typing 'Questions'",
   },
   {
-    name: "licence",
+    name: "license",
     type: "list",
-    message: "Select a licence",
+    message: "Select a license",
     choices: [
       "GNU AGPLv3",
       "GNU GPLv3",
@@ -94,44 +105,28 @@ const questions = [
       "Apache",
       "MIT",
       "Boost Software License 1.0",
+      "None",
     ],
   },
 ];
 
 // function to write README file
 function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, (err) => {
+  return fs.writeFile(fileName, data, (err) => {
     if (err) {
       console.error(err);
     } else {
-      console.log(`Success! Your ${fileName} file has been generated.`);
+      console.log(`Success! Your NewREADME.md file has been generated.`);
     }
   });
 }
+
 // function to initialize program
-async function init() {
-  try {
-    //Prompt Inquirer questions
-    const userResponses = await inquirer.prompt(questions);
-    console.log("Your responses: ", userResponses);
-    console.log(
-      "Thank you for your responses. Fetching your Github data next.."
-    );
-
-    //Fetch GitHub
-    const userInfo = await api.getUser(userResponses);
-    console.log("Your GitHub user info: ", userInfo);
-
-    //Pass Inquirer userResponses
-    console.log("Generating your README next...");
-    const markdown = generateMarkdown(userResponses, userInfo);
-    console.log(markdown);
-
-    //Write README file
-    writeToFile("NewREADME.md", markdown);
-  } catch (error) {
-    console.log(error);
-  }
+function init() {
+  inquirer.prompt(questions).then((responses) => {
+    console.log("Creating Professional NewREADME.md File...");
+    writeToFile("NewREADME.md", generateMarkdown({ ...responses }));
+  });
 }
 
 // function call to initialize program
