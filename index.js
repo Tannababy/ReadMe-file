@@ -11,6 +11,12 @@ const questions = [
     type: "input",
     message: "What is your GitHub username? (No @ needed)",
     default: "tannababy",
+    validate: function (answer) {
+      if (answer.length < 1) {
+        return console.log("A valid GitHub username is required.");
+      }
+      return true;
+    },
   },
   {
     name: "email",
@@ -21,11 +27,24 @@ const questions = [
     name: "title",
     type: "input",
     message: "What is the the title of your project?",
+    default: "Project Title",
+    validate: function (answer) {
+      if (answer.length < 1) {
+        return console.log("A valid project title is required.");
+      }
+      return true;
+    },
   },
   {
     name: "description",
     type: "input",
     message: "What is the the Description of your project? Why was it created?",
+    validate: function (answer) {
+      if (answer.length < 1) {
+        return console.log("A valid project description is required.");
+      }
+      return true;
+    },
   },
   {
     name: "screenshot",
@@ -79,14 +98,38 @@ const questions = [
 ];
 
 // function to write README file
-function writeToFile(fileName, data) {}
-const file = ``;
-
-fs.writeFile("NewReadMe.MD", generateMarkdown(data), (err) =>
-  err ? console.error(err) : console.log(`Success!`)
-);
+function writeToFile(fileName, data) {
+  fs.writeFile(fileName, data, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(`Success! Your ${fileName} file has been generated.`);
+    }
+  });
+}
 // function to initialize program
-function init() {}
+async function init() {
+  try {
+    //Prompt Inquirer questions
+    const userResponses = await inquirer.prompt(questions);
+    console.log("Your responses: ", userResponses);
+    console.log(
+      "Thank you for your responses. Fetching your Github data next.."
+    );
+    const userInfo = await api.getUser(userResponses);
+    console.log("Your GitHub user info: ", userInfo);
+
+    //Pass Inquirer userResponses
+    console.log("Generating your README next...");
+    const markdown = generateMarkdown(userResponses, userInfo);
+    console.log(markdown);
+
+    //Write README file
+    writeToFile("NewREADME.md", markdown);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // function call to initialize program
 init();

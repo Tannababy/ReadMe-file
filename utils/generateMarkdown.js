@@ -34,7 +34,11 @@ function renderLicense(licence) {
 function generateMarkdown(data) {
   return `# ${data.title}
 
+
+
   ## Description
+
+  ${data.descrption}
 
 
   ## Table of Contents
@@ -48,25 +52,29 @@ function generateMarkdown(data) {
 
   ## License
 
-  - ${renderLicense(data.license)}
+   ${renderLicense(data.license)}
 
   ## Installation 
 
+   ${data.installation}
+
   ## Usage
+
+   ${data.usage}
 
   ## Contributing
 
-  - ${data.contributing}
+   ${data.contributing}
 
   ## Tests
 
-  - ${data.test}
+   ${data.test}
 
   ## Questions
 
-  If you have any questions about the repo, contact me directly at ${
-    data.email
-  }. You can also view more of my work at [$(data.github)](https://github.com/${
+   If you have any questions about the repo, contact me directly at ${
+     data.email
+   }. You can also view more of my work at [$(data.github)](https://github.com/ @${
     data.github
   }).
 
