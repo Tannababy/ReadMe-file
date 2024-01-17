@@ -1,7 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 const inquirer = require("inquirer");
-const generateMarkdown = require("./utils/generateMarkdown");
+const generateMarkdown = require("./utils/generateMarkdown.js");
+const api = require("./utils/api.js");
 
 // array of questions for user
 
@@ -49,7 +50,7 @@ const questions = [
   {
     name: "screenshot",
     type: "input",
-    message: "Add a screenshot using ![alt text](assts/images/screenshot.png)",
+    message: "Add a screenshot using ![alt text](assets/images/screenshot.png)",
   },
   {
     name: "installation ",
@@ -116,6 +117,8 @@ async function init() {
     console.log(
       "Thank you for your responses. Fetching your Github data next.."
     );
+
+    //Fetch GitHub
     const userInfo = await api.getUser(userResponses);
     console.log("Your GitHub user info: ", userInfo);
 

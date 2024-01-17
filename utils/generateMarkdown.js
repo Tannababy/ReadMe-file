@@ -70,11 +70,11 @@ function generateMarkdown(data) {
 
    ${data.test}
 
-  ## Questions
+  ## Questions?
 
    If you have any questions about the repo, contact me directly at ${
      data.email
-   }. You can also view more of my work at [$(data.github)](https://github.com/ @${
+   }. You can also view more of my work at [$(data.github)](https://github.com/ ${
     data.github
   }).
 
